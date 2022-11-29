@@ -7,9 +7,33 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Work Sans', sans-serif;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+button {
+  cursor: pointer;
+  outline: none;
+  border: 0;
+}
+
+#root {
+  margin-left: 40px;
+}
+
+.btn {
+  width: 100px;
+  background-color: #324a70;
+  margin-right: 10px;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.btn:active {
+  background-color: #576882;
 }
