@@ -9,6 +9,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Work Sans', sans-serif;
 }
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -23,6 +28,10 @@ button {
 
 #root {
   margin-left: 40px;
+}
+
+li:last-child {
+  margin-top: 20px;
 }
 
 .btn {

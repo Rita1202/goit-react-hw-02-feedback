@@ -1,4 +1,6 @@
 import { Statistics } from './Statistics/Statistics';
+import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
+import { Section } from './Section/Section';
 import { Component } from 'react';
 import '../index.css';
 
@@ -7,76 +9,47 @@ export class App extends Component {
     good: 0,
     neutral: 0,
     bad: 0,
-    total: 0,
   };
 
   countTotalFeedback = () => {
-    this.setState(prev => ({
-      total: prev.good + prev.neutral + prev.bad,
-    }));
+    return this.state.good + this.state.neutral + this.state.bad;
   };
 
-  changeFeedback = e => {
+  onLeaveFeedback = el => {
     this.setState(prev => ({
-      [e.target.name]: prev[e.target.name] + 1,
+      [el]: prev[el] + 1,
     }));
     this.countTotalFeedback();
   };
 
   countPositiveFeedbackPercentage = () => {
-    const res = Math.floor((this.state.good / this.state.total) * 100);
+    const res = Math.floor((this.state.good / this.countTotalFeedback()) * 100);
     return res ? res + '%' : '0%';
   };
 
   render() {
-    const { good, neutral, bad, total } = this.state;
+    const { good, neutral, bad } = this.state;
     return (
       <>
-        <>
-          <p>Please leave your feedback</p>
-
-          <button
-            className="btn"
-            type="button"
-            onClick={this.changeFeedback}
-            name="good"
-            value={this.state.good}
-          >
-            Good
-          </button>
-
-          <button
-            className="btn"
-            type="button"
-            onClick={this.changeFeedback}
-            name="neutral"
-            value={this.state.neutral}
-          >
-            Neutral
-          </button>
-
-          <button
-            className="btn"
-            type="button"
-            onClick={this.changeFeedback}
-            name="bad"
-            value={this.state.bad}
-          >
-            Bad
-          </button>
-
-          {total ? (
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={this.state}
+            onLeaveFeedback={this.onLeaveFeedback}
+          />
+        </Section>
+        <Section title="Statistics">
+          {this.countTotalFeedback() ? (
             <Statistics
               good={good}
               neutral={neutral}
               bad={bad}
-              total={total}
+              total={this.countTotalFeedback()}
               positivePercentage={this.countPositiveFeedbackPercentage()}
             />
           ) : (
             <p>No feedback given</p>
           )}
-        </>
+        </Section>
       </>
     );
   }
